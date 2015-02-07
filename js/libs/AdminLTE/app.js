@@ -122,7 +122,7 @@ $(function() {
     });
 
     //Fix the fixed layout sidebar scroll bug
-    fix_sidebar();
+   // fix_sidebar();
 
     /*
      * We are gonna initialize all checkbox and radio inputs to 
@@ -135,6 +135,7 @@ $(function() {
     });
 
     /* For demo purposes */
+
     var demo = $("<div />").css({
         position: "fixed",
         top: "150px",

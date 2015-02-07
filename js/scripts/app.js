@@ -1,7 +1,20 @@
 var ionicEsApp = angular.module('ionicEsApp', [
     'ngRoute',
-    'ionicEsController'
+    'ngResource',
+    'ionicEsController',
+    'ionicEsFactory'
 ]);
+
+ionicEsApp.directive('ngPrism', [function() {
+    return {
+        restrict: 'A',
+        link: function($scope, element, attrs) {
+            element.ready(function() {
+                Prism.highlightElement(element[0]);
+            });
+        }
+    }
+}]);
 
 ionicEsApp.config(function($routeProvider) {
     $routeProvider.
@@ -10,30 +23,39 @@ ionicEsApp.config(function($routeProvider) {
         //controller: 'IonicEsController'
     }).
     when('/general', {
-        templateUrl: 'templates/content-general.html',
-        //controller: 'IonicEsController'
+        templateUrl: 'templates/general/content-general.html',
+        controller: 'IonicEsController'
     }).
     when('/css', {
-        templateUrl: 'templates/content-css.html',
+        templateUrl: 'templates/general/content-css.html',
         //controller: 'IonicEsController'
     }).
     when('/js', {
-        templateUrl: 'templates/content-js.html',
+        templateUrl: 'templates/general/content-js.html',
         //controller: 'IonicEsController'
     }).
     when('/guia', {
-        templateUrl: 'templates/content-guia.html',
+        templateUrl: 'templates/general/content-guia.html',
         //controller: 'IonicEsController'
     }).
     when('/faq', {
-        templateUrl: 'templates/content-faq.html',
+        templateUrl: 'templates/general/content-faq.html',
         //controller: 'IonicEsController'
     }).
     when('/demos', {
-        templateUrl: 'templates/content-demos.html',
+        templateUrl: 'templates/general/content-demos.html',
+        //controller: 'IonicEsController'
+    }).
+    when('/nav_rut1', {
+        templateUrl: 'templates/formulas/navegacion-rutas1.html',
+        //controller: 'IonicEsController'
+    }).
+    when('/nav_rut2', {
+        templateUrl: 'templates/formulas/navegacion-rutas2.html',
         //controller: 'IonicEsController'
     }).
     otherwise({
         redirectTo: '/'
     });
+
 });

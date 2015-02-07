@@ -1,0 +1,171 @@
+<article>
+    <header>
+        <h1>Build an App with Navigation and Routing - Part 1</h1>
+        <div class='byline'>
+            <img src='/img/authors/gerred-dillon.png'>
+            <span class='author'>
+                Written by
+                <a href='https://twitter.com/justicefries' target='_new'>Gerred Dillon</a>
+            </span>
+            <time></time>
+        </div>
+        <div class='social-buttons'>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Learn how to use navigation and routing with a complex Ionic app" data-via="ionicframework" data-related="ionicframework">Tweet</a>
+            <script>
+            ! function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');
+            </script>
+        </div>
+    </header>
+    <p>This is the beginning of a multi-part series on Ionic’s navigation and routing stack. We will start simple, by creating a simple application that can swap between tabs. As we progress, we will flesh out the features of a full todo app, and show some of the advanced features that Ionic’s router has to offer.</p>
+
+    <p>To see the state of the application at the end of this formula, check out the Scratchpad below.</p>
+
+    <h2 id="the-need-for-routing">The Need for Routing</h2>
+
+    <p>When an app is small, it’s easy to keep track of the current state of things. With only a few views, it’s easy to conceptualize and track the flow of data through an app.</p>
+
+    <p>As our apps become larger and more complex, things become more difficult. Where is my scope coming from? What template should I render? Where am I rendering that template from? How do I nest into detail views? What if I’m in a detail view, change tabs, and come back?</p>
+
+    <p>A lot of questions start to rise, and a lot of boilerplate code is written trying to solve these problems. In effect, we end up writing our own state machines. That’s where Ionic’s navigation and angular-ui-router come into play to help solve these issues.</p>
+
+    <h2 id="getting-started">Getting Started</h2>
+
+    <p>To start, let’s create the simplest possible implementation: display a single view using Ionic’s router. From there, we will layer on more and more features until we have a full application.</p>
+
+    <p>Displaying a single view is as simple as the following HTML:</p>
+
+    <div>
+        <div class="CodeRay">
+            <div class="code"><pre><span class="doctype">&lt;!DOCTYPE html&gt;</span>&#x000A;<span class="tag">&lt;html</span> <span class="attribute-name">ng-app</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ionicApp</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;&#x000A;  <span class="tag">&lt;head&gt;</span>&#x000A;    <span class="tag">&lt;link</span> <span class="attribute-name">data-require</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ionic@1.0.0-beta6</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">data-semver</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1.0.0-beta6</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">stylesheet</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://code.ionicframework.com/1.0.0-beta.6/css/ionic.css</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>&#x000A;    <span class="tag">&lt;script</span> <span class="attribute-name">data-require</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ionic@1.0.0-beta6</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">data-semver</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1.0.0-beta6</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://code.ionicframework.com/1.0.0-beta.6/js/ionic.bundle.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>&#x000A;    <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">stylesheet</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">style.css</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>&#x000A;    <span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">script.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>&#x000A;  <span class="tag">&lt;/head&gt;</span>&#x000A;&#x000A;  <span class="tag">&lt;body&gt;</span>&#x000A;    <span class="tag">&lt;ion-nav-view&gt;</span><span class="tag">&lt;/ion-nav-view&gt;</span>&#x000A;  <span class="tag">&lt;/body&gt;</span>&#x000A;<span class="tag">&lt;/html&gt;</span></pre>
+            </div>
+        </div>
+    </div>
+
+    <p>The
+        <code>ion-nav-view</code>is our container. Ionic’s router will look for this directive throughout our code to insert templates.
+        <code>ion-nav-view</code>supports inheritance, named views, and other features that we will discuss in depth throughout this series.</p>
+
+    <blockquote class="note">
+        <p>
+            <strong>Note:</strong>If you’re familiar with
+            <code>angular-ui-router</code>,
+            <code>ion-nav-view</code>is equivalent to
+            <code>ui-view</code>. On top of that,
+            <code>ion-nav-view</code>provides for animations, history, and more.</p>
+    </blockquote>
+
+    <p>Driving the HTML is something slighty more interesting:</p>
+
+    <div>
+        <div class="CodeRay">
+            <div class="code"><pre><span class="keyword">var</span> app = angular.module(<span class="string"><span class="delimiter">'</span><span class="content">ionicApp</span><span class="delimiter">'</span></span>, [<span class="string"><span class="delimiter">'</span><span class="content">ionic</span><span class="delimiter">'</span></span>])&#x000A;&#x000A;app.config(<span class="keyword">function</span>(<span class="predefined">$stateProvider</span>, <span class="predefined">$urlRouterProvider</span>) {&#x000A;  <span class="predefined">$urlRouterProvider</span>.otherwise(<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>)&#x000A;&#x000A;  <span class="predefined">$stateProvider</span>.state(<span class="string"><span class="delimiter">'</span><span class="content">home</span><span class="delimiter">'</span></span>, {&#x000A;    <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>,&#x000A;    <span class="key">template</span>: <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;Hello, world!&lt;/p&gt;</span><span class="delimiter">'</span></span>&#x000A;  })&#x000A;})</pre>
+            </div>
+        </div>
+    </div>
+
+    <p>To start, we setup a standard Angular app. In our config block, we inject
+        <code>$stateProvider</code>and
+        <code>$urlRouterProvider</code>. These provide the basic blocks necessary to configure our application’s state machine.</p>
+
+    <p>Inside the config block, we can start declaring state. Here, we have declared a single one, and given it a template. When this is run, the template is injected where
+        <code>ion-nav-view</code>is located in the parent template.</p>
+
+    <p>We can also use outside templates to keep markup out of our code.</p>
+
+    <div>
+        <div class="CodeRay">
+            <div class="code"><pre><span class="predefined">$stateProvider</span>.state(<span class="string"><span class="delimiter">'</span><span class="content">home</span><span class="delimiter">'</span></span>, {&#x000A;  <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>,&#x000A;  <span class="key">templateUrl</span>: <span class="string"><span class="delimiter">'</span><span class="content">home.html</span><span class="delimiter">'</span></span>&#x000A;})</pre>
+            </div>
+        </div>
+    </div>
+
+    <p>Changing the state declaration to use
+        <code>templateUrl</code>will cause Angular to look inside of
+        <code>$templateCache</code>for the template. If it’s not in the cache, it will request it from the server and place it in the cache.</p>
+
+    <blockquote class="note">
+        <p>
+            <strong>Note:</strong>In the Scratchpad below, we use script tags with the type
+            <code>text/ng-template</code>and an id of the page name. This will add the template to the template cache, and save us the request.</p>
+    </blockquote>
+
+    <h2 id="adding-some-navigation">Adding some navigation</h2>
+
+    <p>Driving our states through the router isn’t very useful when there’s only one state. Let’s modify our template to use tabs:</p>
+
+    <div>
+        <div class="CodeRay">
+            <div class="code"><pre><span class="tag">&lt;body&gt;</span>&#x000A;  <span class="tag">&lt;ion-tabs</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">tabs-positive</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;    <span class="tag">&lt;ion-tab</span> <span class="attribute-name">icon</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ion-home</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ui-sref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;      <span class="tag">&lt;ion-nav-view</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/ion-nav-view&gt;</span>&#x000A;    <span class="tag">&lt;/ion-tab&gt;</span>&#x000A;    <span class="tag">&lt;ion-tab</span> <span class="attribute-name">icon</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ion-help</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ui-sref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">help</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;      <span class="tag">&lt;ion-nav-view</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">help</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/ion-nav-view&gt;</span>&#x000A;    <span class="tag">&lt;/ion-tab&gt;</span>&#x000A;  <span class="tag">&lt;/ion-tabs&gt;</span>&#x000A;<span class="tag">&lt;/body&gt;</span></pre>
+            </div>
+        </div>
+    </div>
+
+    <p>Whoa, a lot changed! Let’s break it down.</p>
+
+    <p>To start, all we’ve done is changed our app to use Ionic’s
+        <code>ion-tabs</code>directive. If you’re not familiar with it, <a href="http://ionicframework.com/docs/api/directive/ionTabs/">check out the documentation on tabs</a>.</p>
+
+    <p>Our
+        <code>ion-nav-view</code>directives have moved inside of our tab directive. There’s two things to notice here. First, we have added a
+        <code>name</code>attribute to
+        <code>ion-nav-view</code>. Now that there is more than one
+        <code>ion-nav-view</code>in our template at the same level in the heirarchy, we have to name our views. Without this, the router won’t be able to correctly determine the proper place to insert the template, causing events to mis-fire and bugs to appear through the app.</p>
+
+    <p>Second, the tab itself has a
+        <code>ui-sref</code>directive. This is like an
+        <code>href</code>on anchors, but specifies the state we want to transition to. But to transition to another state, we need to add one! Here’s the code:</p>
+
+    <div>
+        <div class="CodeRay">
+            <div class="code"><pre><span class="predefined">$stateProvider</span>.state(<span class="string"><span class="delimiter">'</span><span class="content">home</span><span class="delimiter">'</span></span>, {&#x000A;  <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/home</span><span class="delimiter">'</span></span>,&#x000A;  <span class="key">views</span>: {&#x000A;    <span class="key">home</span>: {&#x000A;      <span class="key">templateUrl</span>: <span class="string"><span class="delimiter">'</span><span class="content">home.html</span><span class="delimiter">'</span></span>&#x000A;    }&#x000A;  }&#x000A;})&#x000A;&#x000A;<span class="predefined">$stateProvider</span>.state(<span class="string"><span class="delimiter">'</span><span class="content">help</span><span class="delimiter">'</span></span>, {&#x000A;  <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/help</span><span class="delimiter">'</span></span>,&#x000A;  <span class="key">views</span>: {&#x000A;    <span class="key">help</span>: {&#x000A;      <span class="key">templateUrl</span>: <span class="string"><span class="delimiter">'</span><span class="content">help.html</span><span class="delimiter">'</span></span>&#x000A;    }&#x000A;  }&#x000A;})</pre>
+            </div>
+        </div>
+    </div>
+
+    <p>Named views change our state declaration slightly. We add a
+        <code>views</code>key, which is an object of all of our sub-views. Within those is an object that takes the same parameters we would use when otherwise declaring a state. More information on named views <a href="https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views">is available in the angular-ui-router docs</a>.</p>
+
+    <p>Let’s not forget about our templates. Add these in at the end of the
+        <code>body</code>:</p>
+
+    <div>
+        <div class="CodeRay">
+            <div class="code"><pre><span class="tag">&lt;script</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/ng-template</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">home.html</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;<span class="inline">  &lt;ion-view title=<span class="string"><span class="delimiter">&quot;</span><span class="content">Home</span><span class="delimiter">&quot;</span></span>&gt;&#x000A;    &lt;ion-content padding=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>&gt;&#x000A;      <span class="tag">&lt;h2&gt;</span>Home Page<span class="tag">&lt;/h2&gt;</span>&#x000A;      <span class="tag">&lt;p&gt;</span>Here's the main route for the app.<span class="tag">&lt;/p&gt;</span>&#x000A;    &lt;<span class="regexp"><span class="delimiter">/</span><span class="content">ion-content&gt;&#x000A;  &lt;</span><span class="delimiter">/</span><span class="modifier">i</span></span>on-view&gt;</span>&#x000A;<span class="tag">&lt;/script&gt;</span>&#x000A;&#x000A;<span class="tag">&lt;script</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/ng-template</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">help.html</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>&#x000A;<span class="inline">  &lt;ion-view title=<span class="string"><span class="delimiter">&quot;</span><span class="content">Home</span><span class="delimiter">&quot;</span></span>&gt;&#x000A;    &lt;ion-content padding=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>&gt;&#x000A;       <span class="tag">&lt;h2&gt;</span>Using the app<span class="tag">&lt;/h2&gt;</span>&#x000A;       <span class="tag">&lt;p&gt;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis architecto hic officia quasi excepturi sequi deleniti maiores consectetur veritatis sint?<span class="tag">&lt;/p&gt;</span>&#x000A;    &lt;<span class="regexp"><span class="delimiter">/</span><span class="content">ion-content&gt;&#x000A;  &lt;</span><span class="delimiter">/</span><span class="modifier">i</span></span>on-view&gt;</span>&#x000A;<span class="tag">&lt;/script&gt;</span></pre>
+            </div>
+        </div>
+    </div>
+
+    <p>At this point, we have a simple app that we can tab through. It would be nice to have a header bar that is aware of our navigation stack, and could update its header accordingly. Let’s add that.</p>
+
+    <h2 id="adding-a-header">Adding a Header</h2>
+
+    <p>Putting a header bar on is easy. Add the following before the
+        <code>ion-tabs</code>directive:</p>
+
+    <div>
+        <pre><code ng-prism class="language-markup">&lt;head>
+        &lt;link href="prism.css" rel="stylesheet" />
+   &lt;/head></code></pre>
+    </div>
+
+    <p>Now when we run, we can see the header bar at the top of the screen, with correct titles. These titles are being driven by the
+        <code>title</code>attribute of
+        <code>ion-view</code>.</p>
+
+    <h2 id="conclusion">Conclusion</h2>
+
+    <p>We now have a basic app whose views are driven by a centralized state machine. In Part 2 of this formula, we will begin to add dynamic content to our views, as well as creating a list - detail hierarchy you can use in your app’s navigation. Stay tuned!</p>
+    <section class='scratchpad'>
+        <p>Try this tutorial out below in the Scratchpad:</p>
+        <div id='scratch'></div>
+    </section>
+</article>

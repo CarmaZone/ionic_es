@@ -14,13 +14,7 @@
     <!-- Theme style -->
     <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap-social.css" rel="stylesheet" type="text/css" />
-
-    <!-- AngularJS  -->
-    <script src="js/libs/angular.min.js"></script>
-    <script src="js/libs/angular-route.min.js"></script>
-    <script src="js/scripts/ionicEsController.js"></script>
-    <script src="js/scripts/ionicEsFactory.js"></script>
-    <script src="js/scripts/app.js"></script>
+    <link rel="stylesheet" href="css/prism.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -83,35 +77,35 @@
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-folder"></i> 
-                            <span>GENERAL</span>
+                            <span>GENERAL (En proceso)</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Descarga</a>
+                            <li><a href="#/general"><i class="fa fa-angle-double-right"></i>Descarga</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Proyecto inicial</a>
+                            <li><a href="#/general"><i class="fa fa-angle-double-right"></i>Proyecto inicial</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>¿Qué hay incluído?</a>
+                            <li><a href="#/general"><i class="fa fa-angle-double-right"></i>¿Qué hay incluído?</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>CSS/SASS</a>
+                            <li><a href="#/general"><i class="fa fa-angle-double-right"></i>CSS/SASS</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Cordova</a>
+                            <li><a href="#/general"><i class="fa fa-angle-double-right"></i>Cordova</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Soporte navegadores</a>
+                            <li><a href="#/general"><i class="fa fa-angle-double-right"></i>Soporte navegadores</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Licencia</a>
+                            <li><a href="#/general"><i class="fa fa-angle-double-right"></i>Licencia</a>
                             </li>
                         </ul>
                     </li>
                     <!-- CSS -->
-                    <li class="treeview">
+<!--                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-folder"></i> 
                             <span>CSS</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Encabezado</a>
+                             <li><a href="#"><i class="fa fa-angle-double-right"></i>Encabezado</a>
                             </li>
                             <li><a href="#"><i class="fa fa-angle-double-right"></i>Contenido</a>
                             </li>
@@ -142,6 +136,21 @@
                             <li><a href="#"><i class="fa fa-angle-double-right"></i>Utilidades</a>
                             </li>
                         </ul>
+                    </li> -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-folder"></i> 
+                            <span>FÓRMULAS (En proceso)</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="#/nav_rut1"><i class="fa fa-angle-double-right"></i>App con navegación y rutas (Parte 1)</a>
+                            </li>
+                            <li>
+                                <a href="#/nav_rut2"><i class="fa fa-angle-double-right"></i>App con navegación y rutas (Parte 2)</a>
+                            </li>
+                        </ul>
                     </li>
                     <!-- JAVASCRIPT -->
                     <!-- CLI -->
@@ -170,6 +179,7 @@
         <aside class="right-side">
             <!-- Main content -->
             <div ng-view></div>
+                    <pre><code ng-prism class="language-html"><div></div></code></pre>
             <!-- /.content -->
         </aside>
         <!-- /.right-side -->
@@ -177,13 +187,21 @@
 
         <!-- ./wrapper -->
 
+        <!-- AngularJS  -->
+
+        <script src="js/libs/angular.min.js"></script>
+        <script src="js/libs/angular-route.min.js"></script>
+        <script src="js/libs/angular-resource.min.js"></script>
+        <script src="js/scripts/ionicEsController.js"></script>
+        <script src="js/scripts/ionicEsFactory.js"></script>
+        <script src="js/scripts/app.js"></script>
         <!-- jQuery -->
         <script src="js/libs/jquery.min.js"></script>
         <!-- Bootstrap -->
         <script src="js/libs/bootstrap.min.js" type="text/javascript"></script>
         <!-- AdminLTE App -->
         <script src="js/libs/AdminLTE/app.js" type="text/javascript"></script>
-
+        <script src="js/libs/prism.js"></script>
 </body>
 
 </html>
