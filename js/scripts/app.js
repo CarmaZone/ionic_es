@@ -16,6 +16,13 @@ ionicEsApp.directive('ngPrism', [function() {
     }
 }]);
 
+ionicEsApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
+    $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+        $location.hash($routeParams.scrollTo);
+        $anchorScroll();
+    });
+})
+
 ionicEsApp.config(function($routeProvider) {
     $routeProvider.
     when('/', {
@@ -24,7 +31,7 @@ ionicEsApp.config(function($routeProvider) {
     }).
     when('/general', {
         templateUrl: 'templates/general/content-general.html',
-        controller: 'IonicEsController'
+        //controller: 'IonicEsController'
     }).
     when('/css', {
         templateUrl: 'templates/general/content-css.html',
