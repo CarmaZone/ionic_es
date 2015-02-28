@@ -1,0 +1,87 @@
+<div class='margen'>
+    <h1 class="api-title">
+        ion-tabs
+        <br/>
+        <small>
+            Delegate:
+            <a href="/docs/api/service/$ionicTabsDelegate/">
+                <code>$ionicTabsDelegate</code>
+            </a>
+        </small>
+
+    </h1>
+
+    <p>
+        <div class="phone-case">
+            <p data-height="568" data-theme-id="3572" data-slug-hash="KbrzJ" data-default-tab="result" class='codepen'>See the Pen by <a href='http://codepen.io/ionic/pen/KbrzJ'>Ionic</a> (<a href='http://codepen.io/ionic'>@ionic</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+            <script async src="//codepen.io/assets/embed/ei.js"></script>
+        </div>
+    </p>
+
+    <p>Powers a multi-tabbed interface with a Tab Bar and a set of &quot;pages&quot; that can be tabbed through.
+    </p>
+
+    <p>Assign any <a href="/docs/components#tabs">tabs class</a> or
+        <a href="/docs/components#animation">animation class</a> to the element to define its look and feel.</p>
+
+    <p>See the
+        <a href="/docs/api/directive/ionTab/">
+            <code>ionTab</code>
+        </a>directive&#39;s documentation for more details on individual tabs.</p>
+
+    <p>Note: do not place ion-tabs inside of an ion-content element; it has been known to cause a certain CSS bug.</p>
+
+    <h2 id="usage">Uso</h2>
+
+    <pre><code ng-prism class="language-markup">&lt;ion-tabs class="tabs-positive tabs-icon-only">
+
+  &lt;ion-tab title="Home" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline">
+    &lt;!-- Tab 1 content -->
+  &lt;/ion-tab>
+
+  &lt;ion-tab title="About" icon-on="ion-ios7-clock" icon-off="ion-ios7-clock-outline">
+    &lt;!-- Tab 2 content -->
+  &lt;/ion-tab>
+
+  &lt;ion-tab title="Settings" icon-on="ion-ios7-gear" icon-off="ion-ios7-gear-outline">
+    &lt;!-- Tab 3 content -->
+  &lt;/ion-tab>
+
+&lt;/ion-tabs></code></pre>
+    <h2 id="api" style="clear:both;">API</h2>
+
+    <table class="table" style="margin:0;">
+        <thead>
+            <tr>
+                <th>Atributos</th>
+                <th>Tipos</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>
+                    delegate-handle
+
+                    <div>
+                        <em>(optional)</em>
+                    </div>
+                </td>
+                <td>
+
+                    <code>string</code>
+                </td>
+                <td>
+                    <p>The handle used to identify these tabs with
+                        <a href="/docs/api/service/$ionicTabsDelegate/">
+                            <code>$ionicTabsDelegate</code>
+                        </a>.</p>
+
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

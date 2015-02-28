@@ -68,7 +68,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('home', {
     url: '/',
-    template: '<p>Hello, world!</p>'
+    template: '&ltp>Hello, world!&lt/p>'
   })
 })</code></pre>
     </div>
@@ -77,10 +77,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         <code>$stateProvider</code>y
         <code>$urlRouterProvider</code>. Éstas directivas nos proporcionan lo necesario para configurar los estados de nuestra aplicación.</p>
 
-    <p>Dentro del bloque de configuración podemos empezar a declarar nuestros estados. Aquí se puede ver como declaramos uno y se asignamos una plantilla. Cuando se ejecute, la plantilla se inyectará donde hayamos colocado la etiqueta 
+    <p>Dentro del bloque de configuración podemos empezar a declarar nuestros estados. Aquí se puede ver como declaramos uno y le asignamos una plantilla. Cuando se ejecute, la plantilla se inyectará donde hayamos colocado la etiqueta 
         <code>ion-nav-view</code> de nuestra plantilla principal.</p>
 
-    <p>We can also use outside templates to keep markup out of our code.</p>
+    <p>También podemos tener las plantillas de forma externa para mantener mejor nuestro código.</p>
 
     <div>
         <pre><code ng-prism class="language-javascript">$stateProvider.state('home', {
@@ -89,19 +89,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
 })</code></pre>
     </div>
 
-    <p>Changing the state declaration to use
-        <code>templateUrl</code>will cause Angular to look inside of
-        <code>$templateCache</code>for the template. If it’s not in the cache, it will request it from the server and place it in the cache.</p>
+    <p>Cambiar la declaración del estado para usar 
+        <code>templateUrl</code>causará que Angular busque ésta plantilla en  
+        <code>$templateCache</code>. Si no la encuentra en la caché, se pedirá al servidor y se guardará en la caché.</p>
 
     <blockquote class="note">
         <p>
-            <strong>Note:</strong>In the Scratchpad below, we use script tags with the type
-            <code>text/ng-template</code>and an id of the page name. This will add the template to the template cache, and save us the request.</p>
+            <strong>Nota:</strong>Más abajo usamos la etiqueta con el tipo
+            <code>text/ng-template</code>y un id con el nombre de la página. Ésto añadirá la plantilla a la caché de plantillas y nos ahorrará la petición al servidor.</p>
     </blockquote>
 
-    <h2 id="adding-some-navigation">Adding some navigation</h2>
+    <h2 id="adding-some-navigation">Añadiendo navegación</h2>
 
-    <p>Driving our states through the router isn’t very useful when there’s only one state. Let’s modify our template to use tabs:</p>
+    <p>Usar enrutamiento en nuestras páginas no es muy útil si solo tenemos un estado. Vamos a modificar nuestra plantilla para usar pestañas:</p>
 
     <div>
         <pre><code ng-prism class="language-markup">&lt;body>
@@ -116,20 +116,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
 &lt;/body></code></pre>
     </div>
 
-    <p>Whoa, a lot changed! Let’s break it down.</p>
+    <p>¡Muchos cambios! Vamos a descomponerlo.</p>
 
-    <p>To start, all we’ve done is changed our app to use Ionic’s
-        <code>ion-tabs</code>directive. If you’re not familiar with it, <a href="http://ionicframework.com/docs/api/directive/ionTabs/">check out the documentation on tabs</a>.</p>
+    <p>Para empezar, hemos cambiado nuestra aplicación para usar la directiva 
+        <code>ion-tabs</code>. Si no estás familiarizado con ella, <a href="#js.tabs">consulta la documentación </a>.</p>
 
-    <p>Our
-        <code>ion-nav-view</code>directives have moved inside of our tab directive. There’s two things to notice here. First, we have added a
-        <code>name</code>attribute to
-        <code>ion-nav-view</code>. Now that there is more than one
-        <code>ion-nav-view</code>in our template at the same level in the heirarchy, we have to name our views. Without this, the router won’t be able to correctly determine the proper place to insert the template, causing events to mis-fire and bugs to appear through the app.</p>
+    <p>Nuestra directiva
+        <code>ion-nav-view</code>se ha movido a dentro de la directiva tab. Hay 2 cosas a destacar aquí. Primero, hemos añadido un atributo
+        <code>name</code>a
+        <code>ion-nav-view</code>. Ahora hay más de un
+        <code>ion-nav-view</code>en nuestra plantilla en la misma jerarquía y tenemos que dar nombre a nuestras vistas. Sin ésto, el enrutador no será capaz de determinar correctamente el lugar en el que insrtar la plantilla, causando fallos en los eventos y errores en nuestra aplicación.</p>
 
-    <p>Second, the tab itself has a
-        <code>ui-sref</code>directive. This is like an
-        <code>href</code>on anchors, but specifies the state we want to transition to. But to transition to another state, we need to add one! Here’s the code:</p>
+    <p>Segundo, la propia pestaña tiene una directiva
+        <code>ui-sref</code>. Es como un
+        <code>href</code>pero especifica el estado al que nos queremos dirigir, pero para movernos a otro estado, ¡necesitamos añadirlo! Aquí está el código:</p>
 
     <div>
         <pre><code ng-prism class="language-javascript">$stateProvider.state('home', {
@@ -151,11 +151,11 @@ $stateProvider.state('help', {
 })</code></pre>
     </div>
 
-    <p>Named views change our state declaration slightly. We add a
-        <code>views</code>key, which is an object of all of our sub-views. Within those is an object that takes the same parameters we would use when otherwise declaring a state. More information on named views <a href="https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views">is available in the angular-ui-router docs</a>.</p>
+    <p>Los nombres de los estados cambian ligeramente. Añadimos una clave
+        <code>views</code>que es un objeto que llama a nuestras sub-vistas. en su interior hay un objeto que declara un estado como lo hicimos anteriormente. Para más información está disponible la <a href="https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views">documentación sobre angular-ui-router</a>.</p>
 
-    <p>Let’s not forget about our templates. Add these in at the end of the
-        <code>body</code>:</p>
+    <p>No podemos olvidarnos de las vista, las añadiremos al final del 
+        <code>body</code>(también podemos tenerlas en archivos independientes):</p>
 
     <div>
         <pre><code ng-prism class="language-markup">&lt;script type="text/ng-template" id="home.html">
@@ -171,33 +171,31 @@ $stateProvider.state('help', {
   &lt;ion-view title="Home">
     &lt;ion-content padding="true">
        &lt;h2>Using the app&lt;/h2>
-       &lt;p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis architecto hic officia quasi excepturi sequi deleniti maiores consectetur veritatis sint?&lt;/p>
+       &lt;p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/p>
     &lt;/ion-content>
   &lt;/ion-view>
 &lt;/script></code></pre>
     </div>
 
-    <p>At this point, we have a simple app that we can tab through. It would be nice to have a header bar that is aware of our navigation stack, and could update its header accordingly. Let’s add that.</p>
+    <p>En este punto, tenemos una aplicación simple que puede usar pestañas. Estaría bien tener una barra de encabezado que supiera en la pestaña que nos encontramos y se actualizara en función a ello. Vamos a añadirla</p>
 
-    <h2 id="adding-a-header">Adding a Header</h2>
+    <h2 id="adding-a-header">Añadiendo un encabezado</h2>
 
-    <p>Putting a header bar on is easy. Add the following before the
-        <code>ion-tabs</code>directive:</p>
+    <p>Poner una barra de encabezado es muy fácil, basta con añadir lo siguiente antes de la directiva
+        <code>ion-tabs</code>:</p>
 
     <div>
         <pre><code ng-prism class="language-markup">&lt;ion-nav-bar class="bar-positive">
 &lt;/ion-nav-bar></code></pre>
     </div>
 
-    <p>Now when we run, we can see the header bar at the top of the screen, with correct titles. These titles are being driven by the
-        <code>title</code>attribute of
+    <p>Ahora cuando ejecutemos nuestra aplicación, veremos en la parte superior nuestro encabezado con su título correspondiente. Estos títulos son asignados gracias al atributo
+        <code>title</code>de
         <code>ion-view</code>.</p>
 
-    <h2 id="conclusion">Conclusion</h2>
+    <h2 id="conclusion">Conclusión</h2>
 
-    <p>We now have a basic app whose views are driven by a centralized state machine. In Part 2 of this formula, we will begin to add dynamic content to our views, as well as creating a list - detail hierarchy you can use in your app’s navigation. Stay tuned!</p>
-    <section class='scratchpad'>
-        <p>Try this tutorial out below in the Scratchpad:</p>
-        <div id='scratch'></div>
-    </section>
+    <p>Ahora tenemos una aplicación simple que centraliza nuestros estados. En la parte 2 de esta fórmula añadiremos contenido dinámico a nuestras vistas y una lista de detalles para usar en nuestra aplicación.</p>
+        <p>Puedes ver el ejemplo funcionando al final del artículo original <a href="http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/">aquí</a>.</p>
 </article>
+
