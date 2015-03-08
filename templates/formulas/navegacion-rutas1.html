@@ -47,7 +47,7 @@
 
     <p>Las etiqueta
         <code>ion-nav-view</code>es nuestro controlador. El enrutamiendo de Ionic buscará esta directiva todo el tiempo en nuestro código para insertar plantillas.
-        <code>ion-nav-view</code> soporta herencia, nombres de vistas y otras caracteríasticas de las que hablaremos a lo largo de esta serie.</p>
+        <code>ion-nav-view</code>soporta herencia, nombres de vistas y otras caracteríasticas de las que hablaremos a lo largo de esta serie.</p>
 
     <blockquote class="note">
         <p>
@@ -55,7 +55,7 @@
             <code>angular-ui-router</code>,
             <code>ion-nav-view</code>es equivalente a
             <code>ui-view</code>. Además,
-            <code>ion-nav-view</code> soporta animaciones, históticos y más.</p>
+            <code>ion-nav-view</code>soporta animaciones, históticos y más.</p>
     </blockquote>
 
     <p>Manejar el HTML es ligeramente más interesante:</p>
@@ -77,8 +77,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         <code>$stateProvider</code>y
         <code>$urlRouterProvider</code>. Éstas directivas nos proporcionan lo necesario para configurar los estados de nuestra aplicación.</p>
 
-    <p>Dentro del bloque de configuración podemos empezar a declarar nuestros estados. Aquí se puede ver como declaramos uno y le asignamos una plantilla. Cuando se ejecute, la plantilla se inyectará donde hayamos colocado la etiqueta 
-        <code>ion-nav-view</code> de nuestra plantilla principal.</p>
+    <p>Dentro del bloque de configuración podemos empezar a declarar nuestros estados. Aquí se puede ver como declaramos uno y le asignamos una plantilla. Cuando se ejecute, la plantilla se inyectará donde hayamos colocado la etiqueta
+        <code>ion-nav-view</code>de nuestra plantilla principal.</p>
 
     <p>También podemos tener las plantillas de forma externa para mantener mejor nuestro código.</p>
 
@@ -89,8 +89,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 })</code></pre>
     </div>
 
-    <p>Cambiar la declaración del estado para usar 
-        <code>templateUrl</code>causará que Angular busque ésta plantilla en  
+    <p>Cambiar la declaración del estado para usar
+        <code>templateUrl</code>causará que Angular busque ésta plantilla en
         <code>$templateCache</code>. Si no la encuentra en la caché, se pedirá al servidor y se guardará en la caché.</p>
 
     <blockquote class="note">
@@ -118,7 +118,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     <p>¡Muchos cambios! Vamos a descomponerlo.</p>
 
-    <p>Para empezar, hemos cambiado nuestra aplicación para usar la directiva 
+    <p>Para empezar, hemos cambiado nuestra aplicación para usar la directiva
         <code>ion-tabs</code>. Si no estás familiarizado con ella, <a href="#js.tabs">consulta la documentación </a>.</p>
 
     <p>Nuestra directiva
@@ -154,7 +154,7 @@ $stateProvider.state('help', {
     <p>Los nombres de los estados cambian ligeramente. Añadimos una clave
         <code>views</code>que es un objeto que llama a nuestras sub-vistas. en su interior hay un objeto que declara un estado como lo hicimos anteriormente. Para más información está disponible la <a href="https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views">documentación sobre angular-ui-router</a>.</p>
 
-    <p>No podemos olvidarnos de las vista, las añadiremos al final del 
+    <p>No podemos olvidarnos de las vista, las añadiremos al final del
         <code>body</code>(también podemos tenerlas en archivos independientes):</p>
 
     <div>
@@ -196,6 +196,6 @@ $stateProvider.state('help', {
     <h2 id="conclusion">Conclusión</h2>
 
     <p>Ahora tenemos una aplicación simple que centraliza nuestros estados. En la parte 2 de esta fórmula añadiremos contenido dinámico a nuestras vistas y una lista de detalles para usar en nuestra aplicación.</p>
-        <p>Puedes ver el ejemplo funcionando al final del artículo original <a href="http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/">aquí</a>.</p>
-</article>
+    <p>Puedes ver el ejemplo funcionando al final del artículo original <a href="http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/">aquí</a>.</p>
 
+</article>

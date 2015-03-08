@@ -1,1 +1,253 @@
-navegacion_rutas_parte2.html
+<article class='margen'>
+    <header>
+        <h1>Construir una aplicación con navegación y rutas (Parte 2)</h1>
+        <div class='byline'>
+            <span class='author'>
+                Escrito por
+                <a href='https://twitter.com/justicefries' target='_new'>Gerred Dillon</a>
+            </span>
+            <time></time>
+        </div>
+    </header>
+    <br>
+
+    <p>Ahora que hemos construído una aplicación básica con Ionic usando navegación y enrutado, vamos a ampliarlo y ver algunas características más avanzadas. Si aún no lo has hecho, completa la <a href="/formulas/navigation-and-routing-part-1/">primera parte de la serie.</a>
+    </p>
+
+    <p>Durante toda esta fórmula, construiremos una sistema de TAREAS básico que mantendrás el estado de la aplicación mientras se navega por ella.</p>
+
+    <h2 id="changing-our-view">Cambiando nuestra vista</h2>
+
+    <p>Para empezar, vamos a modificar nuestra vista <strong>Home</strong> para mostrar el listado de Tareas. Podemos hacer ésto cambiando nuestro estado en declaración 
+        <code>app.home</code>por lo siguiente:</p>
+
+    <div>
+        <pre><code ng-prism class="language-javascript">$stateProvider.state('app.todos', {
+  url: '',
+  views: {
+    todos: {
+      templateUrl: 'todos.html',
+      controller: 'TodosCtrl'
+    }
+  }
+})</code></pre>
+    </div>
+
+    <p>Inicialmente, ésto rompe nuestra aplicación porque no hemos actualizado nuestra plantilla para que refleje el nuevo estado. Actualiza la plantilla para que las pestañas apunten al lugar correcto.</p>
+
+    <div>
+        <pre><code ng-prism class="language-markup">&lt;ion-nav-bar class="bar-positive">
+&lt;/ion-nav-bar>
+&lt;ion-tabs class="tabs-positive">
+  &lt;ion-tab icon="ion-checkmark" ui-sref="app.todos">
+    &lt;ion-nav-view name="todos">&lt;/ion-nav-view>
+  &lt;/ion-tab>
+  &lt;ion-tab icon="ion-help" ui-sref="app.help">
+    &lt;ion-nav-view name="help">&lt;/ion-nav-view>
+  &lt;/ion-tab>
+&lt;/ion-tabs></code></pre>
+    </div>
+
+    <p>También necesitamos una plantilla que se corresponda con la URL que registramos anteriormente:</p>
+
+    <div>
+        <pre><code ng-prism class="language-markup">&lt;ion-view title="Todos">
+  &lt;ion-content>
+    &lt;ion-list>
+      &lt;ion-item ng-repeat="todo in todos" class="item item-icon-right">
+        &lt;span ng-class="{done: todo.done}">{{todo.title}}&lt;/span>
+      &lt;/ion-item>
+    &lt;/ion-list>
+  &lt;/ion-content>
+&lt;/ion-view>
+</code></pre>
+    </div>
+
+    <p>Si has trabajado con enrutado anteriormente o vienes de leer la parte 1 de la fórmula, esto debería serte familiar. De lo contrario, revisa la parte 1 para ponerte al día.</p>
+
+    <p>Ahora tenemos una lista, pero sin datos. Ampliaremos ésto despues, pero por ahora vamos a declarar un TodoCtrl (controlar de tareas) que contendrá los datos de nuestra lista de tareas y lo pasará al scope.:</p>
+
+    <div>
+        <pre><code ng-prism class="language-javascript">app.controller('TodosCtrl', function($scope) {
+  $scope.todos = [
+      {title: "Take out the trash", done: true},
+      {title: "Do laundry", done: false},
+      {title: "Start cooking dinner", done: false}
+   ]
+})</code></pre>
+    </div>
+
+    <p>¡Cuando recarguemos la página aparecerás las tareas! Para resaltar las tereas realizadas, añadimos un estilo para tachar el texto:</p>
+
+    <div>
+        <pre><code ng-prism class="language-css">.done {
+  text-decoration: line-through;
+}</code></pre>
+    </div>
+
+    <h3 id="getting-details">Obteniendo los detalles</h3>
+
+    <p>Ahora que tenemos nuestra lista, queremos ser capaces de ver los detalles de una tarea y ejecutar acciones sobre ella (como completarla). Antes de hacer ésto, necesitamos introducir un concepto importante acerca del sistema de enrutado: <strong>los estados abstractos</strong>.</p>
+
+    <p>Los estados abstractos son un concepto bastante simple en Ionic y proporcionan la estructura necesaria para manejar funciones avanzadas como anidación de vistas. Reestructura el código de enrutado a lo siguiente:</p>
+
+    <div>
+        <pre><code ng-prism class="language-javascript">$stateProvider.state('app.todos', {
+  abstract: true,
+  url: '/todos',
+  views: {
+    todos: {
+      template: '<ion-nav-view></ion-nav-view>'
+    }
+  }
+})
+
+$stateProvider.state('app.todos.index', {
+  url: '',
+  templateUrl: 'todos.html',
+  controller: 'TodosCtrl'
+})
+
+$stateProvider.state('app.todos.detail', {
+  url: '/:todo',
+  templateUrl: 'todo.html',
+  controller: 'TodoCtrl'
+})</code></pre>
+    </div>
+
+    <p>¡Muchos cambios! Con <strong>app.todos</strong> hemos creado un nivel de anidamiento y sub-direcciones de enrutado. Observa que nuestra URL abstracta se llama <strong>/todo</strong>. Esto nos permite simplificar nuestas URLs hijas.
+        <code>app.todos</code>, complete with sub-url routing. Notice that our abstract URL is just called
+        <code>/todos</code>. This allows us to simplify our child URLs.</p>
+
+    <p>Una cosa más. Vamos a conectar nuestra plantila principal (index) con los detalles de la tarea y crear la plantilla de detalles. Aquí está nuestro
+        <code>todos.html</code>:</p>
+
+    <div>
+        <pre><code ng-prism class="language-markup">&lt;ion-view title="Todos">
+  &lt;ion-content>
+    &lt;ion-list>
+      &lt;ion-item ng-repeat="todo in todos"
+        class="item item-icon-right"
+        ui-sref="app.todos.detail({todo: $index})">
+        &lt;span ng-class="{done: todo.done}">{{todo.title}}&lt;/span>
+      &lt;/ion-item>
+    &lt;/ion-list>
+  &lt;/ion-content>
+&lt;/ion-view></code></pre>
+    </div>
+
+    <p>Hemos usado la directiva
+        <code>ui-sref</code>anteriormente, pero ahora hemos añadido algunos cosas nuevas. Esta sintaxis nos permite pasar un objeto con los parámetros para nuestro enlace. En nuestro caso le pasamos el índice del array como parámetro.</p>
+
+    <p>Y aquí está
+        <code>todo.html</code>, rrepresentnado nuestra vista de detalles:</p>
+
+    <div>
+        <pre><code ng-prism class="language-markup">&lt;ion-view title="Todo">
+  &lt;ion-content>
+      &lt;div class="item">
+        &lt;p>{{todo.title}}&lt;/p>
+      &lt;/div>
+
+      &lt;div class="item item-checkbox">
+        &lt;div>
+          &lt;label class="checkbox">
+            &lt;input type="checkbox" ng-model="todo.done">
+          &lt;/label>
+          Done
+        &lt;/div>
+
+      &lt;/div>
+  &lt;/ion-content>
+&lt;/ion-view></code></pre>
+    </div>
+
+    <p>¿Cómo sabe la vista de detalles qué tarea usar? El sistema de enrutado no soporta pasar la referencia al objeto directamente, así que necesitamos una manera de acceder a ese objeto. Para ello creareos un servicio (TodosService) que sea accesible desde cualquier parte de nuesta aplicación.</p>
+
+    <p>La URL del estado de detalles tiene un parámetro específico. Esto es importante para pasar datos entre rutas. En la siguiente sección centralizaremos nuestos datos de la lista de tareas dentro de un servicio y usaremos éste parámetro para traernos los datos.</p>
+
+    <h3 id="tying-it-all-together">Juntándolo todo</h3>
+
+    <p>Si has creado un servicio antes en angular, éste te será familiar. Si éste concepto de servicios es nuevo, puedes <a href="https://docs.angularjs.org/guide/services">consultar la documentación acerca de ello</a>. Estamos usando una factoría de AngularJS para crear una representación única de nuesta Tareas que pueden ser leídas y actualizadas desde multiples sitios.</p>
+
+    <div>
+        <pre><code ng-prism class="language-javascript">app.factory('TodosService', function() {
+  var todos = [
+      {title: "Take out the trash", done: true},
+      {title: "Do laundry", done: false},
+      {title: "Start cooking dinner", done: false}
+   ]
+
+  return {
+    todos: todos,
+    getTodo: function(index) {
+      return todos[index]
+    }
+  }
+})</code></pre>
+    </div>
+
+    <p>El código de nuestro
+        <code>TodosCtrl</code>queda así:</p>
+
+    <div>
+        <pre><code ng-prism class="language-javascript">app.controller('TodosCtrl', function($scope, TodosService) {
+  $scope.todos = TodosService.todos
+})</code></pre>
+    </div>
+
+    <p>Ahora queremos crear un
+        <code>TodoCtrl</code>que maneje nuesta vista de detalles. En el ciclo de Angular, el controlador se ejecuta al final, sin embargo, ¿qué ocurre si queremos asegurarnos que nuestros datos estén disponibles antes de que se represente la ruta y esté disponible? Esto es bastante útil cuando hacemos una petición a un servidor para obtener datos cuando cambia una ruta.</p>
+
+    <p>Hay distintas maneras de hacer ésto, pero la más fácil es usar <code>resolve</code>. Cambia el estado del controlador
+        <code>app.todos.detail</code>por lo siguiente:</p>
+
+    <div>
+        <pre><code ng-prism class="language-javascript">$stateProvider.state('app.todos.detail', {
+  url: '/:todo',
+  templateUrl: 'todo.html',
+  controller: 'TodoCtrl',
+  resolve: {
+    todo: function($stateParams, TodosService) {
+      return TodosService.getTodo($stateParams.todo)
+    }
+  }
+})</code></pre>
+    </div>
+
+    <p><strong>Resolve</strong> es un objeto cuyo mapa valores  pueden ser inyectados en tu controlador de estados. Funcionará con valores o <strong>deferreds</strong> haciéndolo particularmente usable para carga de datos asíncronos. Ahora podemos configurar un
+        <code>TodoCtrl</code>para acceder a estos datos:</p>
+
+    <div>
+        <pre><code ng-prism class="language-javascript">app.controller('TodoCtrl', function($scope, todo) {
+  $scope.todo = todo
+})</code></pre>
+    </div>
+
+    <p>Ejecuta la lista de tareas y pulsa en una. ¡Nos dirigiremos a la vista de detalles! Los estados de navegación se conservan en todos los niveles de la jerarquía</p>
+
+    <p>Sin embargo, nos hemos dejado una cosa importante, el <strong>botón atrás</strong>.</p>
+
+    <h3 id="going-back">Volver</h3>
+
+    <p>Acceder a un estado anidado no es muy usable si no podemos volver atrás. Para hacer ésto vamos a actualizar la directiva
+        <code>ion-nav-bar</code>en
+        <code>main.html</code>para que quede como lo siguiente:</p>
+
+    <div>
+        <pre><code ng-prism class="language-markup">&lt;ion-nav-bar class="bar-positive">
+  &lt;ion-nav-back-button class="button-clear">
+    &lt;i class="ion-arrow-left-c">&lt;/i> Back
+  &lt;/ion-nav-back-button>
+&lt;/ion-nav-bar></code></pre>
+    </div>
+
+    <p><code>ion-nav-back-button</code>es realmente inteligente. Comprende si te mueves a través del mismo nivel o niveles más profundos cuando navegamos y proporcionará el botón atrás cuando sea necesario. Ejecútalo ahora y verás que podemos ir adelante y atrás.</p>
+
+    <h3 id="conclusion">Conclusión</h3>
+
+    <p>Hemos creado una aplicación de lista de tareas básica con una jerarquía de navegación compleja. Al final de la serie, añadiremos un menú lateral además de la habilidad de crear tareas. </p>
+
+
+    <p>Puedes ver el ejemplo funcionando al final del artículo original <a href="http://learn.ionicframework.com/formulas/navigation-and-routing-part-2">aquí</a>.</p>
+</article>

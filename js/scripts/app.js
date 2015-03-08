@@ -58,11 +58,11 @@ ionicEsApp.config(function($routeProvider) {
         //controller: 'IonicEsController'
     }).
     when('/nav_rut2', {
-        templateUrl: 'templates/formulas/navegacion-rutas2.html',
-        //controller: 'IonicEsController'
-    }).
-    //TEMPLATES JAVASCRIPT
-        when('/js.tabs', {
+            templateUrl: 'templates/formulas/navegacion-rutas2.html',
+            //controller: 'IonicEsController'
+        }).
+        //TEMPLATES JAVASCRIPT
+    when('/js.tabs', {
         templateUrl: 'templates/general/javascript/tabs.html',
     }).
     otherwise({
