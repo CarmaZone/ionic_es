@@ -1,1 +1,178 @@
-faq
+<article class='margen'>
+</br>
+    <!-- Android SDK
+  ================================================== -->
+
+    <p>Cuando trabajamos con Cordova e Ionic, Node se convertirá en tu mejor amigo. Especialmente trabajando con Node y la línea de comandos. A continuación se muestran algunos problemas que no son necesariamente de Ionic, pero son errores comunes relacionados con Cordova, Node, NPM y Android:</p>
+
+    <section class="docs-section active" id="android-sdk">
+
+        <h3 class="title"><a href="#android-sdk">Android SDK</a>
+        </h3>
+        <p>Instalar el SDK de Android es un proceso complicado en Windows y Linux.</p>
+        <p>Recientemente Ubuntu ha logrado una fantástica herramienta llamada  Ubuntu Developer Tools Center con la cual podemos instalar el SDK de Android y Android Studio. No vamos a entrar en detalles, puedes seguir los pasos en el siguiente <a href="http://www.webupd8.org/2014/09/canonical-releases-ubuntu-developer.html">artículo del blog</a></p>
+        <p>El proceso de configuración para Android en Windows puede verse en profundidad en<a href="http://learn.ionicframework.com/videos/windows-android/">Ionic Learn Site.</a>
+            Lo único que pienso que podría añadirse durante la configuración es la instalación de git.</p>
+        <p>En Macs suele haber menos problemas en la instalación del entorno de desarrollo para Android. Hay varias maneras de hacerlo, ésta es solo una de ellas. El objetivo finas es tener el SDK instalado, Java y ant.</p>
+        <p>Instlación de Java - puede dirigirte a <a href="http://support.apple.com/kb/dl1572">ésta página.</a>
+            Instalación de Ant - La forma más rápida es usar Homebrew.</p>
+
+        <pre><code ng-prism class="language-bash">$ brew install ant</code></pre>
+
+        <p>Instalar el SDK - Se puede hacer de varias maneras. La que más me gusta es instalar <a href="https://developer.android.com/sdk/installing/studio.html">Android Studio</a>.Esto de instalará un editor con el SDK de Android integrado. Ahora nuestro SDK está en nuesta carpeta de Aplicaciones</p>
+        <p>Edita .bash_profile - i ha seguido los pasos anterioes, necesitarás editar tu .bash_profile para incluir lo siguiente. Si no instalaste Android Studio no hay problema, necesitarás cambiar la ruta del SDK. Incluye el SDK tools y SDK Platform-tools.</p>
+        <pre><code ng-prism class="language-javascript">vim ~/.bash_profile</code></pre> 
+        <p>Añade ésto:</p>
+        <pre><code ng-prism class="language-javascript">export PATH=${PATH}:/Applications/Android\ Studio.app/sdk/platform-tools:/Applications/Android\ Studio.app/sdk/tools
+export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH=${JAVA_HOME}/bin:$PATH
+export PATH=/usr/local/bin:$PATH</code></pre>
+
+        <p>Ahora, ejecuta
+            <code>source ~/.bash_profile</code>para actualizar los cambios.</p>
+        <hr>
+    </section>
+
+
+
+    <!-- Genymotion
+  ================================================== -->
+    <section class="docs-section" id="genymotion">
+
+        <h3 class="title"><a href="#genymotion">Genymotion</a>
+        </h3>
+        <p>Éste consejo no se puede enfatizar lo suficiente! Aunque trabajemos de forma nativa, el emulador de Android es un sufrimiento. Inicia lento, y se bloquea y deja de responder fácilmnente. Afortunadamente <a href="http://www.genymotion.com/">Genymotion</a> es un estupendo reemplazo. Usa una máquina virtual para emular dispositivos android y lo hace perfectamente. A recordar, si quieres desplegar en un dispositivo en genymotion, tu ordenador lo tratará como un dispositivo real, por lo que en lugar de ejecutar</p>
+        <pre><code ng-prism class="language-javascript">$ ionic emulate android</code></pre>
+        <p>usa
+            <code>run</code>en su lugar.</p>
+        <pre><code ng-prism class="language-javascript">$ ionic run android</code></pre>
+        <hr>
+    </section>
+
+
+
+    <!-- Unreleased node
+  ================================================== -->
+    <section class="docs-section" id="cli-commands">
+
+        <h3 class="title"><a href="#cli-commands">Versiones de node sin liberar</a>
+        </h3>
+
+        <p>Si eres un desarrollador de node, probablemnete uses la última versión en tu sistema. Aunque esto es fantástico para testear aplicaciones con node, Cordova e Ionic necesitan estabilidad. Cuando hagas algo con la línea de comandos, usa siempre la versión estable de node</p>
+
+        <hr>
+
+    </section>
+
+
+
+    <!-- ios emulator
+  ================================================== -->
+    <section class="docs-section" id="ios-emulate">
+
+        <h3 class="title"><a href="#ios-emulate">Empezando con el Simulador de iOS</a>
+        </h3>
+
+        <p>Arrancar el emulador de IOS desde la línea de comandos es una característica realmente poderosa. Te libera de abrir Xcode y mantiene un bun flujo de trabajo con la terminal. Pero cuando intentas usar
+            <code>ionic emulate ios</code>lanzará un terrible error.</p>
+        <pre><code ng-prism class="language-javascript">Error: ios-sim was not found. Please download, build and install version 1.7 or greater from https://github.com/phonegap/ios-sim into your path. Or 'npm install -g ios-sim'; using node.js: http://nodejs.org/</code></pre>
+        <p>Esto ocurre porque necesitas instalar un paquete llamado ios-sim que permite acceder al emulador de IOS desde la línea de comandos, Se puede instalar con un simple
+            <code>npm install</code>.</p>
+        <pre><code ng-prism class="language-javascript">$ sudo npm install -g ios-sim</code></pre>
+        <p>Con ello instalado, serás capaz de emular sobre el simulador de IOS.</p>
+        <hr>
+
+    </section>
+
+
+
+    <!-- missing plugins
+  ================================================== -->
+    <section class="docs-section" id="plugins">
+
+        <h3 class="title"><a href="#plugins">Plugins perdidos</a>
+        </h3>
+
+        <p>Cuando actualizas tu proyecto a una nueva versión de Cordova, a veces obtendrás un error de que no puede localizar los plugin. Abres Xcode, intentas ejecutar y contruir (build) desde allí y obtienes el siguiente mensaje por consola</p>
+
+        <pre><code ng-prism class="language-javascript">2014-11-12 14:36:18.284 Tell The DJ[14955:c07] ERROR: Plugin 'Device' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2013-08-23 14:36:18.284 Tell The DJ[14955:c07] -[CDVCommandQueue executePending] [Line 116] FAILED pluginJSON = [
+	"Device1096677259",
+	"Device",
+	"getDeviceInfo",
+	[
+
+	]
+]</code></pre>
+
+        <p>Ésto puede ocurrir por diferentes razones, pero la más común es añadir manualmente los archivos en el proyecto nativo. El proceso de enlazado durante el ciclo de compilación se rompe y ningún archivo nativo se terminan de mover. Para solucionar ésto, borra el archivo
+            <code>ios.json</code>de la carpeta de plugin. Esto hará que Cordova tenga que copiar de nuevo todos los archivo de los plugins.</p>
+            <p>En casos extremos, a veces es necesario eliminar el proyecto.</p>
+        <hr>
+
+    </section>
+
+
+
+    <!-- Cordova Directory
+  ================================================== -->
+    <section class="docs-section" id="cordova-directory">
+
+        <h3 class="title"><a href="#cordova-directory">Directorio de Cordova</a>
+        </h3>
+        <p>Éste es una de los más extremos y frustrantes errores.</p> Intentas usar algun comando de Cordova/Ionic y obtienes este error.
+        <pre><code ng-prism class="language-javascript">Current Working Directory is not Cordova-based project</code></pre>
+        <p>En este punto no es capaz de hacer nada con su proyecto. ¿Por qué ocure ésto? Por varias razones, pero sobre todo porque se ha corrompido su entorno de desarrollo. Puedes ver un <a href="https://github.com/driftyco/ionic/issues/2213#issuecomment-55912785">hilo</a> donde se ocurre a diversos usuarios.</p>
+        <p>Para este caso, la solución fue ejecutar</p>
+        <pre><code ng-prism class="language-javascript">$ cordova create .</code></pre>
+        <p>Básicamente una carpeta oculta que debería estar, no estaba. Ejecutanto ese comando se corrige el problema.</p>
+        <hr>
+    </section>
+
+
+
+    <!-- cordova updates
+  ================================================== -->
+    <section class="docs-section" id="cordova-updates">
+
+        <h3 class="title"><a href="#cordova-updates">Actualizaciones de Cordova</a>
+        </h3>
+        <p>Cuando Cordova lanza una nueva versión, lo mejor es siempre actualizar, así que ejecuta este comando para actualizar la librerías de Cordova.</p>
+        <pre><code ng-prism class="language-javascript">$ sudo npm update -g cordova</code></pre>
+        <p>Fantástico, pero cuando intentas hacer algo en un proyecto, obtendrás un error. Ocurre porque hay diferentes versiones de cordova para cada plataforma, así que desde dentro de tu proyecto necesitas ejecutar el comando update de Cordova</p>
+        <pre><code ng-prism class="language-javascript">$ cordova platform update ios
+$ cordova platform update android</code></pre>
+        <p>Ahora todas tus plataformas están actualizadas.</p>
+        <hr>
+
+    </section>
+
+
+
+    <!-- Windows and git
+  ================================================== -->
+    <section class="docs-section" id="windows">
+
+        <h3 class="title"><a href="#windows">Windows y Git</a>
+        </h3>
+        <p>Has encontrado un fantástico plugin en Github y quieres instalarlo para usarlo en tu aplicación, vamos a instalarlo.</p>
+        <pre><code ng-prism class="language-javascript">ionic plugin add http://github.com/user/awesome-plugin</code></pre>
+        <p>Pero entonces aparece un error. ¿Qué está ocurriendo? Algo que Cordova no menciona es que necesitas tener instalado git para instalar plugins desde Github. Algo así se puede pasar por alto, pero es fácil de solucionar. Solo visita <a href="http://git-scm.com/">la página de git</a>, instálalo y configúralo y listo.</p>
+        <hr>
+
+    </section>
+
+
+
+    <!-- Missing Hooks
+  ================================================== -->
+    <section class="docs-section" id="hooks">
+
+        <h3 class="title"><a href="#hool=ks">Hooks de Cordova perdidos</a>
+        </h3>
+        <p>Si tu proyecto fue creado con versiones antiguas del cliente de Ionic, quizás obtengas algo como esto:</p>
+        <pre><code ng-prism class="language-javascript">addCliHookDirectory fs.chmodSync: Error: ENOENT, no such file or directory 'hooks/after_prepare/010_add_platform_class.js'</code></pre>
+        <p>Afortunadamente se ha solucionado en las últimas versiones. Si no se encuentra el hook, intenta construir (un build) en cualquiera de las plataformas IOS o Android y el cliente de Ionic lo añadirá de nuevo.</p>
+    </section>
+
+</article>
